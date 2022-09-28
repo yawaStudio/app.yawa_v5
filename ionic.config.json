@@ -1,0 +1,7 @@
+{
+    "name": "YAWA-VENTE",
+    "integrations": {
+        "cordova": {}
+    },
+    "type": "ionic-angular"
+}

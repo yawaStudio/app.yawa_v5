@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar color="white">
+        <img src="assets/imgs/logo.png" alt="ITRANS">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+    <div id="container">
+
+        <ion-card color="dark">
+            <ion-card-header color="secondary">
+                <h3 class="capitalize">Gestion des Rotations</h3>
+            </ion-card-header>
+            <h3>Total rotations - {{voy_tot}}</h3>
+        </ion-card>
+        <ion-card>
+            <ion-card-content>
+                <ion-item class="ion-activated">
+                    <ion-label>Lieu Départ</ion-label>
+                    <ion-select [(ngModel)]="leaving_place">
+                        <ion-option [value]="point_a">{{point_a}}</ion-option>
+                        <ion-option [value]="point_b">{{point_b}}</ion-option>
+                    </ion-select>
+                </ion-item>
+                <div padding>
+                    <button ion-button full round color="secondary" (click)="addServe()">Valider</button>
+                    <br><br>
+                    <button *ngIf="serv_etat === 'true'" ion-button full round (click)="close()" color="danger">Annuler</button>
+                    <button *ngIf="serv_etat === 'false'" ion-button full round (click)="cancel()" color="danger">Annuler</button>
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+
+</ion-content>

@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar color="white">
+        <img src="assets/imgs/logo.png" alt="ITRANS">
+
+    </ion-toolbar>
+</ion-header>
+<ion-content fullscreen="true">
+    <ion-card color="dark">
+        <ion-card-header color="secondary">
+            <h3 class="capitalize">Nouvelle dépense</h3>
+        </ion-card-header>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-label>Rubrique</ion-label>
+                <ion-select placeholder="Choisir" [(ngModel)]="rub">
+                    <ion-option value="Carburant">Carburant</ion-option>
+                    <ion-option value="Depannage">Dépannage</ion-option>
+                    <ion-option value="Ration">Ration</ion-option>
+                    <ion-option value="Regulateur">Régulateur</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item class="ion-activated">
+                <ion-label>Montant</ion-label>
+                <ion-input type="number" placeholder="          0000" [(ngModel)]="mont"></ion-input>
+            </ion-item>
+            <div padding>
+                <button ion-button full color="secondary" round (click)="depense()">Valider</button>
+                <button ion-button full round (click)="close()" color="danger">Annuler</button>
+            </div>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

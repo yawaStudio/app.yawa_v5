@@ -1,0 +1,16 @@
+<ion-content [fullscreen]="true" class="bg">
+    <div padding id="container">
+        <p class="capitalize">Formulaire de connexion </p>
+        <ion-item class="ion-activated">
+            <ion-icon name="person" slot="start"></ion-icon>
+            <ion-label position="floating">Nom d'utilisateur</ion-label>
+            <ion-input [(ngModel)]="username"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="key" slot="start"></ion-icon>
+            <ion-label position="floating">Mot de Passe</ion-label>
+            <ion-input type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+        <button ion-button full (click)="proseslogin()" color="secondary" round>Connexion</button>
+    </div>
+</ion-content>

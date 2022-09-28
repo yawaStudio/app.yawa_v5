@@ -1,0 +1,92 @@
+<ion-header>
+    <ion-toolbar color="white">
+        <img src="assets/imgs/logo.png" alt="ITRANS">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div id="container">
+        <br>
+        <br>
+        <ion-card color="dark">
+            <ion-item class="ion-activated">
+                <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label color="dark">Tickets 100 CFA</ion-label>
+                <ion-label color="dark" slot="end">{{nbr_v_tickt}} = {{nbr_v_tickt * 100}} CFA</ion-label>
+            </ion-item>
+            <ion-item *ngIf="nbr_v_tickt_150 > 0" class="ion-activated">
+                <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label color="dark">Tickets 150 CFA</ion-label>
+                <ion-label color="dark" slot="end">{{nbr_v_tickt_150}} = {{nbr_v_tickt_150 * 150}} CFA</ion-label>
+            </ion-item>
+            <ion-item *ngIf="nbr_v_tickt_200 > 0" class="ion-activated">
+                <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label color="dark">Tickets 200 CFA</ion-label>
+                <ion-label color="dark" slot="end">{{nbr_v_tickt_200}} = {{nbr_v_tickt_200 * 200}} CFA</ion-label>
+            </ion-item>
+            <ion-item *ngIf="nbr_v_tickt_250 > 0" class="ion-activated">
+                <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label color="dark">Tickets 250 CFA</ion-label>
+                <ion-label color="dark" slot="end">{{nbr_v_tickt_250}} = {{nbr_v_tickt_250 * 250}} CFA</ion-label>
+            </ion-item>
+            <ion-item *ngIf="nbr_v_tickt_300 > 0" class="ion-activated">
+                <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label color="dark">Tickets 300 CFA</ion-label>
+                <ion-label color="dark" slot="end">{{nbr_v_tickt_300}} = {{nbr_v_tickt_300 * 300}} CFA</ion-label>
+            </ion-item>
+            <ion-item *ngIf="nbr_v_tickt_350 > 0" class="ion-activated">
+                <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label color="dark">Tickets 350 CFA</ion-label>
+                <ion-label color="dark" slot="end">{{nbr_v_tickt_350}} = {{nbr_v_tickt_350 * 350}} CFA</ion-label>
+            </ion-item>
+            <ion-item *ngIf="nbr_v_tickt_400 > 0" class="ion-activated">
+                <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label color="dark">Tickets 400 CFA</ion-label>
+                <ion-label color="dark" slot="end">{{nbr_v_tickt_400}} = {{nbr_v_tickt_400 * 400}} CFA</ion-label>
+            </ion-item>
+            <ion-item *ngIf="nbr_v_tickt_450 > 0" class="ion-activated">
+                <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label color="dark">Tickets 450 CFA</ion-label>
+                <ion-label color="dark" slot="end">{{nbr_v_tickt_450}} = {{nbr_v_tickt_450 * 450}} CFA</ion-label>
+            </ion-item>
+            <ion-item *ngIf="nbr_v_tickt_500 > 0" class="ion-activated">
+                <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label color="dark">Tickets 500 CFA</ion-label>
+                <ion-label color="dark" slot="end">{{nbr_v_tickt_500}} = {{nbr_v_tickt_500 * 500}} CFA</ion-label>
+            </ion-item>
+            <ion-item color="dark" class="ion-activated">
+                <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label class="capitalize">Tickets vendus</ion-label>
+                <ion-label class="capitalize" slot="end">{{nbr_v_tickt + nbr_v_tickt_150 + nbr_v_tickt_200 + nbr_v_tickt_250 + nbr_v_tickt_300 + nbr_v_tickt_350 + nbr_v_tickt_400 + nbr_v_tickt_450}} = {{nbr_v_tickt * 100 + nbr_v_tickt_150 * 150 + nbr_v_tickt_200 * 200+ nbr_v_tickt_250 * 250+
+                    nbr_v_tickt_300 * 300+ nbr_v_tickt_350 * 350+ nbr_v_tickt_400 * 400+ nbr_v_tickt_500 * 500}} CFA
+                </ion-label>
+            </ion-item>
+            <ion-item color="dark" class="capitalize">
+                <ion-icon name="wallet-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label class="capitalize">Total Dépenses</ion-label>
+                <ion-label class="capitalize" slot="end">{{sum_dep}} CFA</ion-label>
+            </ion-item>
+            <ion-item color="dark" class="capitalize">
+                <ion-icon name="thumbs-up-outline" slot="start" color="secondary"></ion-icon>
+                <ion-label class="capitalize">Net à verser</ion-label>
+                <ion-label class="capitalize" slot="end">{{nbr_v_tickt * 100 + nbr_v_tickt_150 * 150 + nbr_v_tickt_200 * 200+ nbr_v_tickt_250 * 250+ nbr_v_tickt_300 * 300+ nbr_v_tickt_350 * 350+ nbr_v_tickt_400 * 400+ nbr_v_tickt_500 * 500 - sum_dep}} CFA</ion-label>
+            </ion-item>
+        </ion-card>
+        <ion-card>
+            <ion-card-content>
+                <ion-item>
+                    <ion-label position="floating">kilométrage de fin</ion-label>
+                    <ion-input type="number" [(ngModel)]="kilo_fin"></ion-input>
+                </ion-item>
+                <ion-row>
+                    <ion-col width-12>
+                        <button ion-button (click)="cancel()" color="dark" round>Annuler</button>
+                    </ion-col>
+                    <ion-col width-12>
+                        <button ion-button (click)="close(inputData)" color="secondary" round>Valider</button>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>
