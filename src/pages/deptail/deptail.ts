@@ -1,3 +1,4 @@
+import { DepensePage } from './../depense/depense';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController, LoadingController } from 'ionic-angular';
 import { ApiService } from "../../providers/api/api-service";
@@ -39,6 +40,7 @@ export class DeptailPage {
   vehicule_matricule: any;
   operator_name: any;
   companie_name: any;
+  ville: any;
   constructor(
     public navCtrl: NavController,
     public toastController: ToastController,
@@ -55,6 +57,7 @@ export class DeptailPage {
   ionViewWillEnter() {
     this.storage.get('service_storage').then((res) => {
       this.service_id = res.id;
+      this.ville=res.zone_name
       console.log(res);
     });
     this.storage.get('depense_storage').then((res) => {
@@ -104,7 +107,7 @@ export class DeptailPage {
               position: 'top',
             });
             toast.present();
-            this.navCtrl.push(VentePage);
+            this.navCtrl.push(DepensePage);
           } else {
             loader.dismiss();
             const toast = await this.toastController.create({

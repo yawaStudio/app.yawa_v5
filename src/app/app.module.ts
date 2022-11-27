@@ -21,7 +21,9 @@ import { DatabaseProvider } from '../providers/database/database';
 import { DeptailPage } from "../pages/deptail/deptail";
 import { SMS } from "@ionic-native/sms";
 import { Geolocation } from "@ionic-native/geolocation";
-
+import { ControlPage } from '../pages/control/control';
+import { RapportPage } from '../pages/rapport/rapport';
+import { DepensePage } from '../pages/depense/depense';
 @NgModule({
   declarations: [
     MyApp,
@@ -31,7 +33,10 @@ import { Geolocation } from "@ionic-native/geolocation";
     PrinterPage,
     VentePage,
     ClosePage,
-    DeptailPage
+    DeptailPage,
+    ControlPage,
+    RapportPage,
+    DepensePage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,10 @@ import { Geolocation } from "@ionic-native/geolocation";
     PrinterPage,
     VentePage,
     ClosePage,
-    DeptailPage
+    DeptailPage,
+    ControlPage,
+    RapportPage,
+    DepensePage
   ],
   providers: [
     StatusBar,

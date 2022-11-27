@@ -36,13 +36,13 @@ export class LoginPage {
   async proseslogin() {
     if (this.username == '') {
       const toast = await this.toastController.create({
-        message: 'Le code du receveur ne peut être vide.',
+        message: 'Le numéro de l\'appareil ne peut être vide.',
         duration: 2000
       });
       toast.present();
     } else if (this.password == '') {
       const toast = await this.toastController.create({
-        message: 'Le mot de passe ne peut être vide.',
+        message: 'Le code secret ne peut être vide.',
         duration: 2000
       });
       toast.present();
@@ -72,6 +72,8 @@ export class LoginPage {
               this.storage.set('line_storage', res.data.line);
               this.storage.set('section_storage', res.data.section);
               this.storage.set('depense_storage', res.data.depense);
+              this.storage.set('controls_storage', res.data.controles);
+              this.storage.set('controllers_storage', res.data.controllers);
               console.log(res.data.tkt);
               for (let value of res.data.tkt) {
                 console.log('t_' +value.price + '_storage = '+ Number(value.qut));
@@ -89,6 +91,7 @@ export class LoginPage {
               this.navCtrl.push(VentePage);
             } else {
               this.storage.set('session_storage', res.data);
+              this.storage.set('controls_storage', res.data.controles);
               this.navCtrl.push(ServicePage);
             }
             const toast = await this.toastController.create({

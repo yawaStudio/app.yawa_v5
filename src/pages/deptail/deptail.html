@@ -1,8 +1,12 @@
 <ion-header>
-    <ion-toolbar color="white">
-        <img src="assets/imgs/logo.png" alt="ITRANS">
 
-    </ion-toolbar>
+    <ion-navbar>
+        <ion-toolbar>
+            <img src="assets/imgs/logo.png" alt="ITRANS">
+
+        </ion-toolbar>
+    </ion-navbar>
+
 </ion-header>
 <ion-content fullscreen="true">
     <ion-card color="dark">
@@ -19,6 +23,8 @@
                     <ion-option value="Depannage">Dépannage</ion-option>
                     <ion-option value="Ration">Ration</ion-option>
                     <ion-option value="Regulateur">Régulateur</ion-option>
+                    <ion-option value="Operateur" *ngIf="ville === 'Kaolack'">Opérateur</ion-option>
+                    <ion-option value="Divers" *ngIf="ville === 'KOLDA'">Divers</ion-option>
                 </ion-select>
             </ion-item>
             <ion-item class="ion-activated">

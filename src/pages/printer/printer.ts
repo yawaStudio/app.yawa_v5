@@ -1,3 +1,4 @@
+import { VentePage } from './../vente/vente';
 import {
   Component
 } from '@angular/core';
@@ -40,7 +41,9 @@ export class PrinterPage {
     });
     toast.present();
   }
- 
+  async goBack() {
+    this.navCtrl.push(VentePage);
+  }
   // qrCode() {
   //   const options: BarcodeScannerOptions = {
   //     preferFrontCamera: false,

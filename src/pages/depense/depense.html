@@ -1,0 +1,52 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-toolbar>
+            <img src="assets/imgs/logo.png" alt="ITRANS">
+        </ion-toolbar>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div id="containerD">
+        <ion-card>
+
+            <ion-card-header>
+                <ion-card-title>
+                    <ion-label color="secondary">TOTAL DEPENSES</ion-label>
+                    <ion-label color="success">{{sum_dep}} CFA
+                    </ion-label>
+                </ion-card-title>
+                <ion-row no-padding>
+
+                    <ion-col text-center>
+                        <button ion-button full (click)="close()" color="danger" icon-end>
+                            Fin service
+                            <ion-icon name="close"></ion-icon>
+                        </button>
+                    </ion-col>
+                </ion-row>
+
+            </ion-card-header>
+            <ion-item slot="header" *ngFor="let li of dep">
+                <ion-label slot="start">{{li.name}}</ion-label>
+                <ion-label color="dark">{{li.sum}} CFA</ion-label>
+                <ion-label slot="end"><button ion-button color="danger" (click)="deldep(li.id)">
+                        <ion-icon name="trash"></ion-icon>
+                    </button>
+                </ion-label>
+            </ion-item>
+            <ion-row no-padding>
+
+                <ion-col text-center>
+                    <ion-chip expand="block" color="primary" (click)="depenses()">
+                        <ion-label>AJOUTER UNE DEPENSE</ion-label>
+                        <ion-icon name="add-circle" color="dark"></ion-icon>
+                    </ion-chip>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </div>
+</ion-content>

@@ -7,14 +7,21 @@
 <ion-content [fullscreen]="true">
     <div id="container">
         <br>
-        <ion-card>
-            <ion-item class="ion-activated">
-                <ion-icon name="user" start></ion-icon>
-                <p class="capitalize">Service Receveur</p>
-            </ion-item>
+        <ion-card color="dark">
+            <ion-card-header color="secondary">
+                <h3 class="capitalize">Ouverture service</h3>
+            </ion-card-header>
         </ion-card>
         <ion-card>
             <ion-card-content>
+                <ion-item class="ion-activated">
+                    <ion-label>Receveur(se)</ion-label>
+                    <ion-input type="text" [(ngModel)]="seller"></ion-input>
+                </ion-item>
+                <ion-item class="ion-activated">
+                    <ion-label>Chauffeur</ion-label>
+                    <ion-input type="text" [(ngModel)]="driver"></ion-input>
+                </ion-item>
                 <ion-item class="ion-activated">
                     <ion-label>Ligne</ion-label>
                     <ion-select placeholder="Choisir" [(ngModel)]="line_id">

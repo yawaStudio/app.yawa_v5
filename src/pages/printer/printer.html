@@ -1,20 +1,23 @@
 <ion-header>
-    <ion-navbar color="white">
-        <img src="assets/imgs/logo.png" alt="ITRANS">
-    </ion-navbar>
-</ion-header>
+    <ion-toolbar color="white">
 
+        <ion-buttons start (click)="goBack()">
+            <button ion-button icon-only color="dark">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        </ion-buttons>
+        <img src="assets/imgs/logo.png" alt="ITRANS">
+    </ion-toolbar>
+</ion-header>
 <ion-content padding>
-    <ion-card>
-        <img src="assets/imgs/card.png" />
-        <ion-card-content>
-            <ion-card-title>
-                COMMENT SCANNER UNE CARTE ITRANS ?
-            </ion-card-title>
-            <p>
-                Veuillez appuyer sur <span color="danger">"SCANNER"</span> et placer la caméra au centre de la carte pour scanner. Après choisissez un ticket pour vendre.
-            </p>
-        </ion-card-content>
-    </ion-card>
-    <button ion-button full (click)="qrCode()">Scanner</button>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <img src="assets/imgs/cash.png" alt="ITRANS">
+            </ion-col>
+            <ion-col>
+                <img src="assets/imgs/card.png" alt="ITRANS">
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

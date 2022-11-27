@@ -117,7 +117,7 @@ export class VoyPage {
                   price: element.price
                 }
               }
-             
+              this.storage.set('rotations', 1);
               this.storage.set('voyage_storage', res.data.rotations)
               this.storage.set('serv_etat', 'true');
               this.navCtrl.push(VentePage);

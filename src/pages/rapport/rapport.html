@@ -1,0 +1,115 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-toolbar>
+            <img src="assets/imgs/logo.png" alt="YAWA">
+
+        </ion-toolbar>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <div id="containers">
+
+
+        <ion-card>
+
+            <ion-card-header>
+                <ion-card-title class="ion-text-center">
+                    <ion-label color="secondary" class="ion-text-center">NET A VERSER</ion-label>
+                    <ion-label color="success" class="ion-text-center">{{nbr_v_tickt * 100 + nbr_v_tickt_150 * 150 + nbr_v_tickt_200 * 200+ nbr_v_tickt_250 * 250+ nbr_v_tickt_300 * 300+ nbr_v_tickt_350 * 350+ nbr_v_tickt_400 * 400+ nbr_v_tickt_500 * 500 - sum_dep}} CFA</ion-label>
+                </ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+                <ion-item slot="header">
+                    <ion-label>VENTES</ion-label>
+                    <ion-label color="dark" slot="end">{{nbr_v_tickt * 100 + nbr_v_tickt_150 * 150 + nbr_v_tickt_200 * 200+ nbr_v_tickt_250 * 250+ nbr_v_tickt_300 * 300+ nbr_v_tickt_350 * 350+ nbr_v_tickt_400 * 400+ nbr_v_tickt_500 * 500}} CFA</ion-label>
+                </ion-item>
+
+                <ion-item slot="header">
+                    <ion-label>DEPENSES</ion-label>
+                    <ion-label color="dark" slot="end">{{sum_dep}} CFA</ion-label>
+                </ion-item>
+
+                <ion-item class="ion-activated" *ngIf="nbr_v_tickt > 0">
+                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                    <ion-label color="dark">Tickets 100 CFA</ion-label>
+                    <ion-label color="dark" slot="end">{{nbr_v_tickt}} = {{nbr_v_tickt * 100}} CFA</ion-label>
+                </ion-item>
+                <ion-item *ngIf="nbr_v_tickt_150 > 0" class="ion-activated">
+                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                    <ion-label color="dark">Tickets 150 CFA</ion-label>
+                    <ion-label color="dark" slot="end">{{nbr_v_tickt_150}} = {{nbr_v_tickt_150 * 150}} CFA</ion-label>
+                </ion-item>
+                <ion-item *ngIf="nbr_v_tickt_200 > 0" class="ion-activated">
+                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                    <ion-label color="dark">Tickets 200 CFA</ion-label>
+                    <ion-label color="dark" slot="end">{{nbr_v_tickt_200}} = {{nbr_v_tickt_200 * 200}} CFA</ion-label>
+                </ion-item>
+                <ion-item *ngIf="nbr_v_tickt_250 > 0" class="ion-activated">
+                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                    <ion-label color="dark">Tickets 250 CFA</ion-label>
+                    <ion-label color="dark" slot="end">{{nbr_v_tickt_250}} = {{nbr_v_tickt_250 * 250}} CFA</ion-label>
+                </ion-item>
+                <ion-item *ngIf="nbr_v_tickt_300 > 0" class="ion-activated">
+                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                    <ion-label color="dark">Tickets 300 CFA</ion-label>
+                    <ion-label color="dark" slot="end">{{nbr_v_tickt_300}} = {{nbr_v_tickt_300 * 300}} CFA</ion-label>
+                </ion-item>
+                <ion-item *ngIf="nbr_v_tickt_350 > 0" class="ion-activated">
+                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                    <ion-label color="dark">Tickets 350 CFA</ion-label>
+                    <ion-label color="dark" slot="end">{{nbr_v_tickt_350}} = {{nbr_v_tickt_350 * 350}} CFA</ion-label>
+                </ion-item>
+                <ion-item *ngIf="nbr_v_tickt_400 > 0" class="ion-activated">
+                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                    <ion-label color="dark">Tickets 400 CFA</ion-label>
+                    <ion-label color="dark" slot="end">{{nbr_v_tickt_400}} = {{nbr_v_tickt_400 * 400}} CFA</ion-label>
+                </ion-item>
+                <ion-item *ngIf="nbr_v_tickt_450 > 0" class="ion-activated">
+                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                    <ion-label color="dark">Tickets 450 CFA</ion-label>
+                    <ion-label color="dark" slot="end">{{nbr_v_tickt_450}} = {{nbr_v_tickt_450 * 450}} CFA</ion-label>
+                </ion-item>
+                <ion-item *ngIf="nbr_v_tickt_500 > 0" class="ion-activated">
+                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
+                    <ion-label color="dark">Tickets 500 CFA</ion-label>
+                    <ion-label color="dark" slot="end">{{nbr_v_tickt_500}} = {{nbr_v_tickt_500 * 500}} CFA</ion-label>
+                </ion-item>
+            </ion-card-content>
+
+            <ion-row no-padding>
+
+                <ion-col text-center>
+                    <button ion-button full (click)="close()" color="danger" icon-end>
+                        Fin service
+                        <ion-icon name="close"></ion-icon>
+                      </button>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </div>
+    <div id="containers">
+        <ion-card color="dark">
+            <ion-card-header color="secondary">
+                <h3 class="capitalize">Historique contrôles</h3>
+            </ion-card-header>
+        </ion-card>
+        <ion-card>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item *ngFor="let c of controls">
+                        <h2> {{c.controler_name}}</h2>
+                        <h3>{{c.controler_code}} à {{c.rise_time}}</h3>
+                        <h3>Rotation n°: {{c.rotation}}</h3>
+                        <h3>Tickets en vus: {{c.ticket_vu}}</h3>
+
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+
+    </div>
+</ion-content>

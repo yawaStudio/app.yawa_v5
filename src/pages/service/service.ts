@@ -21,6 +21,8 @@ export class ServicePage implements OnInit {
   //line select
   line: any[] = [];
   service: any;
+  seller: string;
+  driver: string;
 
   constructor(
     public navCtrl: NavController,
@@ -53,7 +55,21 @@ export class ServicePage implements OnInit {
         duration: 2000
       });
       toast.present();
-    } else if (this.start_miles == '') {
+    }  else if (this.seller == '') {
+      const toast = this.toastController.create({
+        message: 'Le receveur ne peut être vide.',
+        duration: 2000
+      });
+      toast.present();
+
+    } else if (this.driver == '') {
+      const toast = this.toastController.create({
+        message: 'Le Chauffeur ne peut être vide.',
+        duration: 2000
+      });
+      toast.present();
+
+    }else if (this.start_miles == '') {
       const toast = this.toastController.create({
         message: 'Le Kilométrage ne peut être vide.',
         duration: 2000
@@ -69,6 +85,8 @@ export class ServicePage implements OnInit {
         let body = {
           line_id: this.line_id,
           start_miles: this.start_miles,
+          seller: this.seller,
+          driver: this.driver,
           device_id: this.device_id
         };
         console.log(body);
@@ -80,6 +98,7 @@ export class ServicePage implements OnInit {
             this.storage.set('service_storage', res.data.service);
             this.storage.set('line_storage', res.data.line);
             this.storage.set('section_storage', res.data.section);
+            this.storage.set('controllers_storage', res.data.controllers);
             this.navCtrl.push(VoyPage, { stat_0: 0, stat_printer: 1 });
             const toast = await this.toastController.create({
               message: 'Service ouvert',

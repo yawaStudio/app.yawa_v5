@@ -82,6 +82,7 @@ export class ClosePage {
   heure: string;
   sta: any;
   service_id: any;
+  controls: any;
   constructor(
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
@@ -142,6 +143,12 @@ export class ClosePage {
       console.log(this.sum_dep);
 
     });
+    this.storage.get('controls_storage').then((res) => {
+      if (res) {
+        this.controls = res;
+      }
+      console.log('Controleurs = ' , this.sum_dep);
+    });
 
   }
 
@@ -173,51 +180,78 @@ export class ClosePage {
             //Printing
             // u can remove this when generate the receipt using another method
             data.text1 = '*********ITRANS*********';
-            data.text2 = '--- ' + res.data.service.companie_name+' --- ';
-            data.text3 = '--- Feuille de Route ---';
-            data.text4 = '--- ' + res.data.service.service_date +' --- ';
-            data.text5 = 'BUS: ' + res.data.service.vehicule_matricule + ' - LIGNE: ' + res.data.service.line_name;
-            data.text6 = 'POS: ' + res.data.service.device_number;
-            data.text7 = 'Début: ' + res.data.service.start_time;
-            data.text8 = 'Fin: ' + res.data.service.end_time;
-            data.text9 = ' =====================';
-            data.text10 = ' ---INFOS VEHICULE---';
-            data.text11 = 'Opérateur: ' + res.data.service.operator_name;
-            data.text12 = 'Kilométrage Depart: ' + res.data.service.start_miles + 'km';
-            data.text13 = 'Kilométrage fin: ' + res.data.service.end_miles + 'km';
-            data.text14 = 'Rotations: ' + res.data.rotation;
-            data.text15 = ' =====================';
-            data.text16 = ' ---RECETTES--- ';
+            data.text2 = '--- INFOS OPERATEUR ---';
+            data.text3 = 'ZN: ' + res.data.service.zone_name ;
+            data.text4 = 'CP: ' + res.data.service.companie_name ;
+            data.text5 = 'OP: ' + res.data.service.operator_name;
+            data.text6 = 'BUS: ' + res.data.service.vehicule_matricule;
+            data.text7 = 'POS: ' + res.data.service.device_number;
+            data.text8 = '--- INFOS SERVICE ---';
+            data.text9 = 'DATE: ' + res.data.service.service_date ;
+            data.text10 = 'RECEVEUR(SE): ' + res.data.service.seller;
+            data.text11 = 'CHAUFFEUR: ' + res.data.service.driver;
+            data.text12 = 'LIGNE: ' + res.data.service.line_name;
+            data.text13 = 'DEBUT: ' + res.data.service.start_time;
+            data.text14 = 'FIN: ' + res.data.service.end_time;
+            data.text15 = 'KM DEPART: ' + res.data.service.start_miles + 'km';
+            data.text16 = 'KM FIN: ' + res.data.service.end_miles + 'km';
+            data.text17 = 'ROTATIONS: ' + res.data.rotation;
+            data.text18 = 'CONTROLES: ' + res.data.controles.count;
+            data.text19 = ' =====================';
+           
+            data.text20 = ' ---RECETTES--- ';
             for (let value of res.data.vente.tickets) {
               if (value.price == 100) {
-                data.text17 = 'TICKETS ' + value.price + ' | ' + value.qut + ' | ' + value.sum + ' CFA ';
-              } else if (value.price == 150) {
-                data.text18 = 'TICKETS ' + value.price + ' | ' + value.qut + ' | ' + value.sum + ' CFA ';
-              } else if (value.price == 200) {
-                data.text19 = 'TICKETS ' + value.price + ' | ' + value.qut + ' | ' + value.sum + ' CFA ';
-              }
+                data.text21 = 'TICKETS ' + value.price + ' | ' + value.qut + ' | ' + value.sum + ' CFA ';
+              } 
+             if (value.price == 150) {
+                data.text22 = 'TICKETS ' + value.price + ' | ' + value.qut + ' | ' + value.sum + ' CFA ';
+              } 
+             if (value.price == 200) {
+                data.text23 = 'TICKETS ' + value.price + ' | ' + value.qut + ' | ' + value.sum + ' CFA ';
+              } 
             }
-            data.text20 = 'Total Tickets | ' + res.data.service.tickets_count + ' | ' + res.data.vente.sum_tic +' CFA';
-            data.text21 = ' ===================== ';
-            data.text22 = ' ---DEPENSES--- ';
+            data.text24 = 'TOT RECETTES | ' + res.data.service.tickets_count + ' | ' + res.data.vente.sum_tic +' CFA';
+            data.text25 = ' ===================== ';
+            data.text26 = ' ---DEPENSES--- ';
             for (let value of res.data.depense.expenses) {
               if (value.name === 'Carburant') {
-                data.text23 = value.name + ' | ' + value.sum + ' CFA ';
-              } else if (value.name === 'Depannage') {
-                data.text24 = value.name + ' | ' + value.sum + ' CFA ';
-              } else if (value.name === 'Regulateur') {
-                data.text25 = value.name + ' | ' + value.sum + ' CFA ';
-              }else if (value.name === 'Ration') {
-                data.text26 = value.name + ' | ' + value.sum + ' CFA ';
-              }
+                data.text27 = value.name + ' | ' + value.sum + ' CFA ';
+              } else{
+               data.text27 = 'Carburant | 0 CFA ';
+             }  
+             if (value.name === 'Regulateur') {
+                data.text28 = 'Régulateur | ' + value.sum + ' CFA ';
+              }else{
+               data.text28 = 'Régulateur | 0 CFA ';
+             }  
+             if (value.name === 'Ration') {
+                data.text29 = value.name + ' | ' + value.sum + ' CFA ';
+              }else{
+               data.text29 = 'Ration | 0 CFA ';
+             }  if (value.name === 'Depannage') {
+                data.text30 = 'Dépannage | ' + value.sum + ' CFA ';
+              }else{
+               data.text30 = 'Dépannage | 0 CFA ';
+             }  
+             if (value.name === 'Operateur') {
+              data.text31 = 'Opérateur | ' + value.sum + ' CFA ';
+            }else{
+             data.text31 = 'Opérateur | 0 CFA ';
+           }  
+           if (value.name === 'Divers') {
+            data.text32 = 'Divers | ' + value.sum + ' CFA ';
+          }else{
+           data.text32 = 'Divers | 0 CFA ';
+         } 
             }
-            data.text27 = 'Total Depenses | ' + res.data.depense.sum_dep + ' CFA';
-            data.text28 = ' ===================== ';
-            data.text29 = ' ---NET A VERSER--- ';
-            data.text30 = 'Total Ventes: ' + res.data.vente.sum_tic + ' CFA';
-            data.text31 = 'Total Dépenses: ' + res.data.depense.sum_dep + ' CFA';
-            data.text32 = 'NET A VERSER: ' + res.data.service.service_balance + ' CFA';
-            data.text33 = '*********ITRANS*********';
+            data.text33 = 'TOTAL | ' + res.data.depense.sum_dep + ' CFA';
+            data.text34 = ' ===================== ';
+            data.text35 = ' ---NET A VERSER--- ';
+            data.text36 = 'TOTAL VENTES: ' + res.data.vente.sum_tic + ' CFA';
+            data.text37 = 'TOTAL DEPENSES: ' + res.data.depense.sum_dep + ' CFA';
+            data.text38 = 'NET A VERSER: ' + res.data.service.service_balance + ' CFA';
+            data.text39 = '*********ITRANS*********';
             const encoder = new EscPosEncoder();
             const result = encoder.initialize();
 
@@ -225,7 +259,7 @@ export class ClosePage {
               .codepage('cp936')
               .align('left')
               .text(data.text1)
-              .qrcode('#YW' + this.service_id)
+              .newline()
               .text(data.text2)
               .newline()
               .text(data.text3)
@@ -290,6 +324,18 @@ export class ClosePage {
               .newline()
               .text(data.text33)
               .newline()
+              .text(data.text34)
+              .newline()
+              .text(data.text35)
+              .newline()
+              .text(data.text36)
+              .newline()
+              .text(data.text37)
+              .newline()
+              .text(data.text38)
+              .newline()
+              .text(data.text39)
+              .newline()
               .newline()
               .newline()
             this.mountAlertBt(result.encode());
@@ -333,6 +379,7 @@ export class ClosePage {
             console.log(printStatus);
             this.storage.clear();
             this.printer.disconnectBluetooth();
+            
             this.navCtrl.push(LoginPage);
             const toast = this.toastController.create({
               message: 'Service fermé avec succès!',

@@ -1,10 +1,21 @@
+import { DepensePage } from './../depense/depense';
+import { RapportPage } from './../rapport/rapport';
+import { ControlPage } from './../control/control';
 import { Component, } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ActionSheetController, Platform, AlertController } from 'ionic-angular';
+import { PrinterPage } from "./../printer/printer";
+import { IonicPage, 
+  NavController, 
+  NavParams, 
+  ToastController, 
+  ActionSheetController, 
+  Platform, 
+  ModalController,
+  AlertController 
+} from 'ionic-angular';
 import { ApiService } from "../../providers/api/api-service";
 import { Storage } from "@ionic/storage";
 import { VoyPage } from '../voy/voy';
 import { PrinterProvider } from '../../providers/printer/printer';
-import { ClosePage } from '../close/close';
 import EscPosEncoder from 'esc-pos-encoder-ionic';
 import { DeptailPage } from '../deptail/deptail';
 
@@ -35,6 +46,10 @@ export class VentePage {
   id_sec: string = '';
   zone: string = 'Zone A';
   num: string = '1';
+  rotation_count: number = 0;
+  rotations: number = 1;
+  tv: number = 0;
+  tv_count: number = 1;
 
   //100
   nbr_v_tickt: number = 0;
@@ -130,6 +145,12 @@ export class VentePage {
   price: any;
   dep: any;
   rat: any;
+  controls: any;
+  print_t: number=0;
+  print_t_count: number=0;
+  seller: any;
+  driver: any;
+  ville: any;
 
   constructor(
     public navCtrl: NavController,
@@ -138,6 +159,7 @@ export class VentePage {
     private platform: Platform,
     private postPvdr: ApiService,
     private printer: PrinterProvider,
+    public modalCtrl: ModalController,
     private alertCtrl: AlertController,
     public actionsheetCtrl: ActionSheetController,
     public navParams: NavParams) {
@@ -147,31 +169,7 @@ export class VentePage {
   ionViewWillEnter() {
 
     this.platform.ready().then(() => {
-      // this.storage.get('t_100_storage').then((res) => {
-      //   if (res) {
-      //   this.nbr_r_tickt = res + 1;
-      //   this.nbr_v_tickt = res;
-
-      //   }
-      //   console.log('Tickets 100 vendus = ' + this.nbr_v_tickt);
-      // });
-      // this.storage.get('t_150_storage').then((res) => {
-      //   if (res) {
-      //   this.nbr_r_tickt_150 = res + 1;
-      //   this.nbr_v_tickt_150 = res;
-
-      //   }
-      //   console.log('Tickets 150 vendus = ' + this.nbr_v_tickt_150);
-      // });
-      // this.storage.get('t_200_storage').then((res) => {
-      //   if (res) {
-      //     this.nbr_r_tickt_200 = res + 1;
-      //     this.nbr_v_tickt_200 = res;
-
-      //   }
-      //   console.log('Tickets 200 vendus = ' + this.nbr_v_tickt_200);
-      // });
-
+     
       this.storage.get('t_100_storage').then((res) => {
         this.nbr_r_tickt = res + 1;
         this.nbr_v_tickt = res;
@@ -187,24 +185,17 @@ export class VentePage {
         this.nbr_v_tickt_200 = res;
         console.log('Tickets 200 vendus = ' + this.nbr_v_tickt_200);
       });
-      this.storage.get('t_250_storage').then((res) => {
-        this.nbr_r_tickt_250 = res + 1;
-        this.nbr_v_tickt_250 = res;
-        console.log('Tickets 250 vendus = ' + this.nbr_v_tickt_250);
-      });
-      this.storage.get('t_300_storage').then((res) => {
-        this.nbr_r_tickt_300 = res + 1;
-        this.nbr_v_tickt_300 = res;
-        console.log('Tickets 300 vendus = ' + this.nbr_v_tickt_300);
-      });
 
 
       this.storage.get('service_storage').then((res) => {
         this.service_id = res.id;
         this.device_number = res.device_number;
+        this.seller = res.seller;
+        this.driver = res.driver;
         this.vehicule_matricule = res.vehicule_matricule;
         this.operator_name = res.operator_name;
         this.companie_name = res.companie_name;
+        this.ville = res.zone_name;
         console.log(res);
       });
       this.storage.get('section_storage').then((res) => {
@@ -223,6 +214,12 @@ export class VentePage {
         console.log('Dépenses = ' + this.sum_dep);
         console.log(this.dep);
       });
+      this.storage.get('controls_storage').then((res) => {
+        if (res) {
+          this.controls = res;
+        }
+        console.log('Controleurs = ' , this.sum_dep);
+      });
       this.storage.get('voyage_storage').then((res) => {
         if (res == null) {
           this.navCtrl.push(VoyPage);
@@ -232,15 +229,27 @@ export class VentePage {
           this.arrived_place = this.voy.arrived_place;
           this.rotation_id = this.voy.id;
         }
-        console.log(res);
+        console.log('ROTATION ', this.voy);
       });
-      this.storage.get('voy_count').then((res) => {
-        this.voy_count = res + 1;
-        this.voy_tot = res;
-        console.log('Total rotations ' + this.voy_tot);
-      });
-      this.today = Date.now();
 
+
+      this.storage.get('rotations').then((res) => {
+        this.rotation_count = res + 1;
+        this.rotations = res;
+        console.log('Total rotations ' + this.rotations);
+      });
+      this.storage.get('t_en_vu').then((res) => {
+        this.tv_count = res + 1;
+        if (res == null) {
+          this.tv = 1;
+        } else {
+          this.tv = res;
+        }
+       
+        console.log('Total rotations ' + this.tv);
+      });
+
+      this.today = Date.now();
 
       this.storage.get('line_storage').then((res) => {
         this.line_name = res.name;
@@ -279,7 +288,13 @@ export class VentePage {
     }
     this.navCtrl.push(DeptailPage);
   }
-  async close() {
+  
+  async modal(){
+    const modal = this.modalCtrl.create(PrinterPage);
+    modal.present();
+  }
+
+  async control() {
     try {
       this.sendData()
     } catch (error) {
@@ -290,28 +305,17 @@ export class VentePage {
       });
       toast.present();
     }
-    this.navCtrl.push(ClosePage);
+    this.navCtrl.push(ControlPage);
   }
-  deldep(de_id) {
-    return new Promise(resolve => {
-      let body = {
-        service_id: this.service_id,
-        expense_id: de_id,
-      };
-      console.log(body);
-      this.postPvdr.postData(body, 'expenses/delete').subscribe(async (res: any) => {
-        console.log(res.data);
-        this.storage.set('depense_storage', res.data.depense);
-        this.navCtrl.push(VentePage);
-        const toast = this.toastController.create({
-          message: 'Dépense supprimé avec succès!',
-          duration: 2000,
-          position: 'top',
-        });
-        toast.present();
-      });
-    });
+  async rapport() {
+    
+    this.navCtrl.push(RapportPage);
   }
+  async depe() {
+    
+    this.navCtrl.push(DepensePage);
+  }
+  
   async newZone() {
 
     try {
@@ -349,6 +353,7 @@ export class VentePage {
           service_id: this.service_id,
           leaving_place: this.leaving_place,
           arrived_place: this.arrived_place,
+          ticket_count: this.tv,
         };
         console.log(body);
         this.postPvdr.postData(body, 'rotations').subscribe(async (res: any) => {
@@ -356,7 +361,12 @@ export class VentePage {
           if (res.data.etat == 'yes') {
             this.storage.set('voyage_storage', res.data.rotations)
             this.storage.set('serv_etat', 'true');
+            this.rotations = this.rotation_count++;
 
+            this.storage.set('rotations', this.rotations);
+            this.tv = 1
+            this.tv_count = 1;
+            this.storage.set('t_en_vu', this.tv);
             const toast = await this.toastController.create({
               message: 'Nouvel Itineraire',
               duration: 2000,
@@ -372,10 +382,19 @@ export class VentePage {
       if (this.leaving_place == this.point_a) {
         this.leaving_place = this.point_b
         this.arrived_place = this.point_a
+        this.rotations = this.rotation_count++;
+        this.storage.set('rotations', this.rotations);
+        this.tv = 1
+        this.tv_count = 1;
+        this.storage.set('t_en_vu', this.tv);
       } else {
         this.leaving_place = this.point_a
         this.arrived_place = this.point_b
-        this.storage.set('voy_count', this.voy_count);
+        this.rotations = this.rotation_count++;
+        this.storage.set('rotations', this.rotations);
+        this.tv = 1
+        this.tv_count = 1;
+        this.storage.set('t_en_vu', this.tv);
         console.log('Total rotations: ' + this.voy_count);
 
       }
@@ -390,9 +409,13 @@ export class VentePage {
     this.section = nom;
     console.log('SECTION ' + this.section + ' = ' + this.price);
     this.today = new Date().toLocaleDateString();
-    this.heure = new Date().toLocaleTimeString();
-
+    this.heure = new Date().toLocaleTimeString('en-US', {
+      hour12: false,
+    });
+    // console.log('time ', this.heure)
     //Just for test leaving
+     // this.tv = this.tv_count++;
+     // this.storage.set('t_en_vu', this.tv);
     // if (this.price == 100) {
     //   this.nbr_v_tickt = this.nbr_r_tickt++;
     //   console.log('Total Tickets 100 vendus = ' + this.nbr_v_tickt);
@@ -439,20 +462,25 @@ export class VentePage {
     //     toast.present();
     //   }
     // } 
-
+   
+      this.print_t = this.tv_count
+   
     //Printing
     data.text1 = '*********ITRANS*********';
-    data.text2 = this.vehicule_matricule + ' ' + ' - ' + this.line_name;
-    data.text3 = this.today + ' à ' + this.heure;
-    data.text4 = this.price + ' CFA - ' + this.section;
-    data.text5 = '*********ITRANS*********';
+    data.text2 = 'ZONE - ' + this.ville;
+    data.text3 = this.vehicule_matricule + ' ' + ' - ' + this.line_name;
+    data.text4 = this.leaving_place + ' --> ' + this.arrived_place ;
+    data.text5 = 'ROTATION N°: '+ this.rotations + ' - ' + 'TICKET N°: ' +this.tv;
+    data.text6 = this.today + ' à ' + this.heure;
+    data.text7= this.price + ' CFA - ' + this.section;
+    data.text8 = '*********ITRANS*********';
     const encoder = new EscPosEncoder();
     const result = encoder.initialize()
     result
       .codepage('cp936')
       .align('center')
       .text(data.text1)
-      .qrcode('#YW' + this.service_id + ' ' + this.vehicule_matricule + ' ' + this.line_name + ' ' + this.leaving_place + ' -> ' + this.arrived_place + ' le ' + this.today + ' à ' + this.heure + ' ' + this.price + ' CFA')
+      .newline()
       .text(data.text2)
       .newline()
       .text(data.text3)
@@ -462,11 +490,16 @@ export class VentePage {
       .newline()
       .text(data.text5)
       .newline()
+      .text(data.text6)
+      .newline()
+      .text(data.text7)
+      .newline()
+      .text(data.text8)
+      .newline()
       .newline()
       .newline()
     this.mountAlertBt(result.encode(), this.price, id);
   }
-
 
   mountAlertBt(data, pu, id) {
     this.receipt = data;
@@ -536,6 +569,8 @@ export class VentePage {
           .printData(data)
           .then((printStatus) => {
             console.log(printStatus);
+            this.tv = this.tv_count++;
+            this.storage.set('t_en_vu', this.print_t);
             if (this.price == 100) {
               this.nbr_v_tickt = this.nbr_r_tickt++;
               this.storage.set('t_100_storage', this.nbr_v_tickt);

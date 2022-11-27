@@ -8,153 +8,31 @@
     <ion-toolbar no-border-top>
         <ion-card color="dark" id="header">
             <ion-card-header color="secondary">
-                POS N° {{device_number}} - BUS {{vehicule_matricule}}
-                <h3 class="capitalize"> {{ today | date: 'dd/MM/yyyy HH:mm' }}</h3>
-                <h3>Ligne {{line_name}}</h3>
+                Receveur(se): {{seller}} <br> POS N° {{device_number}} - BUS {{vehicule_matricule}}
                 <h1 color="secondary">{{nbr_v_tickt * 100 + nbr_v_tickt_150 * 150 + nbr_v_tickt_200 * 200+ nbr_v_tickt_250 * 250+ nbr_v_tickt_300 * 300+ nbr_v_tickt_350 * 350+ nbr_v_tickt_400 * 400+ nbr_v_tickt_500 * 500}} CFA</h1>
+
+                <h1 color="secondary">R-{{rotations}} ----- T-{{tv}}</h1>
             </ion-card-header>
 
         </ion-card>
     </ion-toolbar>
     <ion-card color="dark">
         <ion-segment [(ngModel)]="pet" (ionChange)="segmentChanged($event)" scrollable>
-            <ion-segment-button value="vente">
-                VENTES
+
+            <ion-segment-button (click)="rapport()">
+                SOMMAIRE
             </ion-segment-button>
-            <ion-segment-button value="rapport">
-                RAPPORT
-            </ion-segment-button>
-            <ion-segment-button value="depenses">
-                DEPENSES
+            <ion-segment-button (click)="depe()">
+                FRAIS
             </ion-segment-button>
         </ion-segment>
     </ion-card>
-    <div [ngSwitch]="pet">
-        <ion-card *ngSwitchCase="'vente'">
-            <ion-card-content>
-                <ion-list>
-                    <ion-item (click)="rotation()">
-                        <ion-icon name="ios-repeat" item-start></ion-icon>
-                        {{leaving_place}} ---> {{arrived_place}}
-                        <ion-icon name="ios-arrow-forward" item-end></ion-icon>
-                    </ion-item>
-                    <ion-item (click)="newZone()">
-                        <ion-icon name="ios-git-pull-request" item-start></ion-icon>
-                        {{zone}}
-                        <ion-icon name="ios-arrow-forward" item-end></ion-icon>
-                    </ion-item>
-                </ion-list>
-                <ion-grid>
-                    <ion-row *ngIf="zone === 'Zone A'">
-                        <ion-col *ngFor="let s of sec" col-4>
-                            <img src="assets/imgs/{{s.price}}.png" (click)="vticket(inputData, s.price, s.name, s.id)" alt="s.price">
-                        </ion-col>
-                    </ion-row>
-                    <ion-row *ngIf="zone === 'Zone B'">
-                        <ion-col *ngFor="let s of sec" col-4>
-                            <img src="assets/imgs/{{s.price}}.png" (click)="vticket(inputData, s.price, s.name, s.id)" alt="s.price">
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>
-
-        <ion-card *ngSwitchCase="'rapport'" id="header">
-            <ion-card-header>
-                <ion-card-title>
-                    <ion-label color="secondary">NET A VERSER</ion-label>
-                    <ion-label color="success">{{nbr_v_tickt * 100 + nbr_v_tickt_150 * 150 + nbr_v_tickt_200 * 200+ nbr_v_tickt_250 * 250+ nbr_v_tickt_300 * 300+ nbr_v_tickt_350 * 350+ nbr_v_tickt_400 * 400+ nbr_v_tickt_500 * 500 - sum_dep}} CFA</ion-label>
-                </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-                <ion-item slot="header">
-                    <ion-label>VENTES</ion-label>
-                    <ion-label color="dark" slot="end">{{nbr_v_tickt * 100 + nbr_v_tickt_150 * 150 + nbr_v_tickt_200 * 200+ nbr_v_tickt_250 * 250+ nbr_v_tickt_300 * 300+ nbr_v_tickt_350 * 350+ nbr_v_tickt_400 * 400+ nbr_v_tickt_500 * 500}} CFA</ion-label>
-                </ion-item>
-                <ion-item slot="header">
-                    <ion-label>DEPENSES</ion-label>
-                    <ion-label color="dark" slot="end">{{sum_dep}} CFA</ion-label>
-                </ion-item>
-
-                <ion-item class="ion-activated" *ngIf="nbr_v_tickt > 0">
-                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
-                    <ion-label color="dark">Tickets 100 CFA</ion-label>
-                    <ion-label color="dark" slot="end">{{nbr_v_tickt}} = {{nbr_v_tickt * 100}} CFA</ion-label>
-                </ion-item>
-                <ion-item *ngIf="nbr_v_tickt_150 > 0" class="ion-activated">
-                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
-                    <ion-label color="dark">Tickets 150 CFA</ion-label>
-                    <ion-label color="dark" slot="end">{{nbr_v_tickt_150}} = {{nbr_v_tickt_150 * 150}} CFA</ion-label>
-                </ion-item>
-                <ion-item *ngIf="nbr_v_tickt_200 > 0" class="ion-activated">
-                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
-                    <ion-label color="dark">Tickets 200 CFA</ion-label>
-                    <ion-label color="dark" slot="end">{{nbr_v_tickt_200}} = {{nbr_v_tickt_200 * 200}} CFA</ion-label>
-                </ion-item>
-                <ion-item *ngIf="nbr_v_tickt_250 > 0" class="ion-activated">
-                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
-                    <ion-label color="dark">Tickets 250 CFA</ion-label>
-                    <ion-label color="dark" slot="end">{{nbr_v_tickt_250}} = {{nbr_v_tickt_250 * 250}} CFA</ion-label>
-                </ion-item>
-                <ion-item *ngIf="nbr_v_tickt_300 > 0" class="ion-activated">
-                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
-                    <ion-label color="dark">Tickets 300 CFA</ion-label>
-                    <ion-label color="dark" slot="end">{{nbr_v_tickt_300}} = {{nbr_v_tickt_300 * 300}} CFA</ion-label>
-                </ion-item>
-                <ion-item *ngIf="nbr_v_tickt_350 > 0" class="ion-activated">
-                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
-                    <ion-label color="dark">Tickets 350 CFA</ion-label>
-                    <ion-label color="dark" slot="end">{{nbr_v_tickt_350}} = {{nbr_v_tickt_350 * 350}} CFA</ion-label>
-                </ion-item>
-                <ion-item *ngIf="nbr_v_tickt_400 > 0" class="ion-activated">
-                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
-                    <ion-label color="dark">Tickets 400 CFA</ion-label>
-                    <ion-label color="dark" slot="end">{{nbr_v_tickt_400}} = {{nbr_v_tickt_400 * 400}} CFA</ion-label>
-                </ion-item>
-                <ion-item *ngIf="nbr_v_tickt_450 > 0" class="ion-activated">
-                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
-                    <ion-label color="dark">Tickets 450 CFA</ion-label>
-                    <ion-label color="dark" slot="end">{{nbr_v_tickt_450}} = {{nbr_v_tickt_450 * 450}} CFA</ion-label>
-                </ion-item>
-                <ion-item *ngIf="nbr_v_tickt_500 > 0" class="ion-activated">
-                    <ion-icon name="cart-outline" slot="start" color="secondary"></ion-icon>
-                    <ion-label color="dark">Tickets 500 CFA</ion-label>
-                    <ion-label color="dark" slot="end">{{nbr_v_tickt_500}} = {{nbr_v_tickt_500 * 500}} CFA</ion-label>
-                </ion-item>
-            </ion-card-content>
-            <button ion-button full color="danger" (click)="close()">
-                <ion-label> FIN DE SERVICE</ion-label>
-                <ion-icon name="close"></ion-icon>  
-            </button>
-        </ion-card>
-
-        <ion-card *ngSwitchCase="'depenses'" id="header">
-            <ion-card-header>
-                <ion-card-title>
-                    <ion-label color="secondary">TOTAL DEPENSES</ion-label>
-                    <ion-label color="success">{{sum_dep}} CFA
-                    </ion-label>
-                </ion-card-title>
-                <ion-chip expand="block" color="danger" (click)="depenses()">
-                    <ion-label>AJOUTER UNE DEPENSE</ion-label>
-                    <ion-icon name="add-circle" color="dark"></ion-icon>
-                </ion-chip>
-            </ion-card-header>
-            <ion-item slot="header" *ngFor="let li of dep">
-                <ion-label slot="start">{{li.name}}</ion-label>
-                <ion-label color="dark">{{li.sum}} CFA</ion-label>
-                <ion-label slot="end"><button ion-button color="danger" (click)="deldep(li.id)">
-                    <ion-icon name="trash"></ion-icon>
-                </button></ion-label>
-            </ion-item>
-        </ion-card>
-    </div>
-    <ion-card *ngIf="seg === 'true'">
+    <ion-card>
         <ion-card-content>
             <ion-list>
-                <ion-item (click)="scan()">
-                    <ion-icon name="md-barcode" item-start></ion-icon>
-                    SCANNER UNE CARTE
+                <ion-item (click)="control()">
+                    <ion-icon name="md-thumbs-up" item-start></ion-icon>
+                    Contrôle
                     <ion-icon name="ios-arrow-forward" item-end></ion-icon>
                 </ion-item>
                 <ion-item (click)="rotation()">
@@ -182,4 +60,5 @@
             </ion-grid>
         </ion-card-content>
     </ion-card>
+
 </ion-content>
