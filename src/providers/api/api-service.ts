@@ -5,13 +5,13 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class ApiService {
   // Dev endpoints
-  selling: string = "http://localhost/selling.yawa-trans.com/";
-  server: string = "http://127.0.0.1:3333/api/v1/";
+  //selling: string = "http://localhost/selling.yawa-trans.com/";
+  //server: string = "http://127.0.0.1:3333/api/v1/";
   
   
   // Prod endpoints
-  //selling: string = "https://selling.yawa-trans.com/api/";
-  //server: string = "https://api.yawa-trans.com/api/v1/";
+  selling: string = "https://selling.yawa-trans.com/api/";
+  server: string = "https://api.yawa-trans.com/api/v1/";
 
   constructor(public http: HttpClient) { }
 
