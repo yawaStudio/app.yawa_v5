@@ -107,7 +107,7 @@ export class ClosePage {
       console.log('Tickets 200 vendus = ' + this.nbr_v_tickt_200);
     });
 
-    
+
     this.storage.get('printer').then((res) => {
       this.printo = res;
     });
@@ -125,7 +125,7 @@ export class ClosePage {
     toast.present();
   }
   ionViewWillEnter() {
-    
+
     this.platform.ready().then(() => {
       this.today = Date.now();
       this.storage.get('service_storage').then((res) => {
@@ -147,7 +147,7 @@ export class ClosePage {
       if (res) {
         this.controls = res;
       }
-      console.log('Controleurs = ' , this.sum_dep);
+      console.log('Controleurs = ', this.sum_dep);
     });
 
   }
@@ -181,13 +181,13 @@ export class ClosePage {
             // u can remove this when generate the receipt using another method
             data.text1 = '*********ITRANS*********';
             data.text2 = '--- INFOS OPERATEUR ---';
-            data.text3 = 'ZN: ' + res.data.service.zone_name ;
-            data.text4 = 'CP: ' + res.data.service.companie_name ;
+            data.text3 = 'ZN: ' + res.data.service.zone_name;
+            data.text4 = 'CP: ' + res.data.service.companie_name;
             data.text5 = 'OP: ' + res.data.service.operator_name;
             data.text6 = 'BUS: ' + res.data.service.vehicule_matricule;
             data.text7 = 'POS: ' + res.data.service.device_number;
             data.text8 = '--- INFOS SERVICE ---';
-            data.text9 = 'DATE: ' + res.data.service.service_date ;
+            data.text9 = 'DATE: ' + res.data.service.service_date;
             data.text10 = 'RECEVEUR(SE): ' + res.data.service.seller;
             data.text11 = 'CHAUFFEUR: ' + res.data.service.driver;
             data.text12 = 'LIGNE: ' + res.data.service.line_name;
@@ -198,52 +198,43 @@ export class ClosePage {
             data.text17 = 'ROTATIONS: ' + res.data.rotation;
             data.text18 = 'CONTROLES: ' + res.data.controles.count;
             data.text19 = ' =====================';
-           
+
             data.text20 = ' ---RECETTES--- ';
             for (let value of res.data.vente.tickets) {
               if (value.price == 100) {
                 data.text21 = 'TICKETS ' + value.price + ' | ' + value.qut + ' | ' + value.sum + ' CFA ';
-              } 
-             if (value.price == 150) {
+              }
+              if (value.price == 150) {
                 data.text22 = 'TICKETS ' + value.price + ' | ' + value.qut + ' | ' + value.sum + ' CFA ';
-              } 
-             if (value.price == 200) {
+              }
+              if (value.price == 200) {
                 data.text23 = 'TICKETS ' + value.price + ' | ' + value.qut + ' | ' + value.sum + ' CFA ';
-              } 
+              }
             }
-            data.text24 = 'TOT RECETTES | ' + res.data.service.tickets_count + ' | ' + res.data.vente.sum_tic +' CFA';
+            data.text24 = 'TOT RECETTES | ' + res.data.service.tickets_count + ' | ' + res.data.vente.sum_tic + ' CFA';
             data.text25 = ' ===================== ';
             data.text26 = ' ---DEPENSES--- ';
             for (let value of res.data.depense.expenses) {
-              if (value.name === 'Carburant') {
-                data.text27 = value.name + ' | ' + value.sum + ' CFA ';
-              } else{
-               data.text27 = 'Carburant | 0 CFA ';
-             }  
-             if (value.name === 'Regulateur') {
+              if (value.name == 'Carburant') {
+                data.text27 = 'Carburant | ' + value.sum + ' CFA ';
+              }
+              if (value.name === 'Regulateur') {
                 data.text28 = 'Régulateur | ' + value.sum + ' CFA ';
-              }else{
-               data.text28 = 'Régulateur | 0 CFA ';
-             }  
-             if (value.name === 'Ration') {
+              }
+              if (value.name === 'Ration') {
                 data.text29 = value.name + ' | ' + value.sum + ' CFA ';
-              }else{
-               data.text29 = 'Ration | 0 CFA ';
-             }  if (value.name === 'Depannage') {
+              }
+              if (value.name === 'Depannage') {
                 data.text30 = 'Dépannage | ' + value.sum + ' CFA ';
-              }else{
-               data.text30 = 'Dépannage | 0 CFA ';
-             }  
-             if (value.name === 'Operateur') {
-              data.text31 = 'Opérateur | ' + value.sum + ' CFA ';
-            }else{
-             data.text31 = 'Opérateur | 0 CFA ';
-           }  
-           if (value.name === 'Divers') {
-            data.text32 = 'Divers | ' + value.sum + ' CFA ';
-          }else{
-           data.text32 = 'Divers | 0 CFA ';
-         } 
+              }
+              if (value.name === 'Operateur') {
+                data.text31 = 'Opérateur | ' + value.sum + ' CFA ';
+              }
+              if (value.name === 'Divers') {
+                data.text32 = 'Divers | ' + value.sum + ' CFA ';
+              } else {
+                data.text32 = 'Divers | 0 CFA ';
+              }
             }
             data.text33 = 'TOTAL | ' + res.data.depense.sum_dep + ' CFA';
             data.text34 = ' ===================== ';
@@ -338,6 +329,11 @@ export class ClosePage {
               .newline()
               .newline()
               .newline()
+              .newline()
+              .newline()
+              .newline()
+              .newline()
+              .newline()
             this.mountAlertBt(result.encode());
 
           } else {
@@ -358,7 +354,7 @@ export class ClosePage {
           });
           toast.present();
         });
-       
+
       });
     }
   }
@@ -379,7 +375,7 @@ export class ClosePage {
             console.log(printStatus);
             this.storage.clear();
             this.printer.disconnectBluetooth();
-            
+
             this.navCtrl.push(LoginPage);
             const toast = this.toastController.create({
               message: 'Service fermé avec succès!',
@@ -478,5 +474,5 @@ export class ClosePage {
     this.navCtrl.push(VentePage);
   }
 
-  
+
 }

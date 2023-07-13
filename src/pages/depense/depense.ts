@@ -1,6 +1,6 @@
-import { RapportPage } from './../rapport/rapport';
+import { VentePage } from './../vente/vente';
 import { Component,ViewChild } from '@angular/core';
-import { IonicPage, Content, NavController, NavParams, ToastController, ActionSheetController, Platform, AlertController } from 'ionic-angular';
+import { IonicPage, Content, NavController, NavParams, ToastController, ActionSheetController, Platform } from 'ionic-angular';
 import { ApiService } from "../../providers/api/api-service";
 import { Storage } from "@ionic/storage";
 import { DeptailPage } from '../deptail/deptail';
@@ -137,7 +137,6 @@ export class DepensePage {
     private storage: Storage,
     private platform: Platform,
     private postPvdr: ApiService,
-    private alertCtrl: AlertController,
     public actionsheetCtrl: ActionSheetController,
     public navParams: NavParams) {
 
@@ -263,7 +262,6 @@ export class DepensePage {
     this.navCtrl.push(DeptailPage);
   }
   async close() {
-    
-    this.navCtrl.push(RapportPage);
+    this.navCtrl.push(VentePage);
   }
 }

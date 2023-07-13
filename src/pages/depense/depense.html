@@ -1,33 +1,34 @@
 <ion-header>
-
-    <ion-navbar>
-        <ion-toolbar>
-            <img src="assets/imgs/logo.png" alt="ITRANS">
-        </ion-toolbar>
-    </ion-navbar>
-
+    <ion-toolbar color="white">
+        <img src="assets/imgs/logo.png" alt="ITRANS">
+    </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
     <div id="containerD">
         <ion-card>
+            <ion-row>
+                <ion-col>
+                    <button ion-button icon-start clear small color="danger" (click)="close()">
+                    <ion-icon name="arrow-back"></ion-icon>
+                    <div>Retour</div>
+                  </button>
+                </ion-col>
+                <ion-col>
 
+                </ion-col>
+                <ion-col align-self-center text-center>
+
+                </ion-col>
+            </ion-row>
             <ion-card-header>
                 <ion-card-title>
                     <ion-label color="secondary">TOTAL DEPENSES</ion-label>
                     <ion-label color="success">{{sum_dep}} CFA
                     </ion-label>
                 </ion-card-title>
-                <ion-row no-padding>
 
-                    <ion-col text-center>
-                        <button ion-button full (click)="close()" color="danger" icon-end>
-                            Fin service
-                            <ion-icon name="close"></ion-icon>
-                        </button>
-                    </ion-col>
-                </ion-row>
 
             </ion-card-header>
             <ion-item slot="header" *ngFor="let li of dep">

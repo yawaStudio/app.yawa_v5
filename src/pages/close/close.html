@@ -1,16 +1,25 @@
 <ion-header>
-
-    <ion-navbar>
-        <ion-toolbar>
-            <img src="assets/imgs/logo.png" alt="ITRANS">
-
-        </ion-toolbar>
-    </ion-navbar>
-
+    <ion-toolbar color="white">
+        <img src="assets/imgs/logo.png" alt="ITRANS">
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
     <div id="container">
+        <ion-row>
+            <ion-col>
+                <button ion-button icon-start clear small color="danger" (click)="cancel()">
+                <ion-icon name="arrow-back"></ion-icon>
+                <div>Retour</div>
+              </button>
+            </ion-col>
+            <ion-col>
+
+            </ion-col>
+            <ion-col align-self-center text-center>
+
+            </ion-col>
+        </ion-row>
         <br>
         <br>
         <ion-card color="dark">
